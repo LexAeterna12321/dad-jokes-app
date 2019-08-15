@@ -3,7 +3,12 @@ import Joke from "./Joke";
 
 const Jokes = () => {
   const jokes = [
-    { txt: "simple joke example", vote: 0, id: "1" },
+    {
+      txt:
+        "simple joke examplesimple joke examplesimple joke examplesimple joke.",
+      vote: 0,
+      id: "1"
+    },
     { txt: "simple joke example 2", vote: 4, id: "2" },
     { txt: "simple joke example 3", vote: -2, id: "3" }
   ];

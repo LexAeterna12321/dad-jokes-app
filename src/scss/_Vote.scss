@@ -1,17 +1,38 @@
 .vote {
     display: flex;
     align-items: center;
+    color: $grey-color-dark-1;
+    text-align: center;
 
+    @media only screen and (max-width:$bp-mobile) {
+        flex-direction: column;
+        align-content: space-between;
+    }
+
+    &__count {
+        border-radius: 50%;
+        margin: 0 1rem;
+        font-size: 1.5rem;
+        border: 1px solid black;
+        width: 4.5rem;
+        height: 4.5rem;
+        line-height: 4.5rem;
+        color: $grey-color-dark-2;
+
+        @media only screen and (max-width:$bp-mobile) {
+            margin: 0;
+        }
+    }
 
     &__arrow {
         font-size: 4rem;
-        color: #bbb;
         font-weight: bold;
         margin: 0 .5rem;
         cursor: pointer;
+        transition: color $trs-time;
 
         &:hover {
-            color: #ccc;
+            color: $grey-color-light-1;
         }
     }
 }

@@ -1,7 +1,15 @@
 import React from "react";
 
 const IconIndicator = () => {
-  return <div className="Joke__icon">IconIndicator</div>;
+  return (
+    <span
+      className="Joke__icon IconIndicator"
+      role="img"
+      aria-label="Grinning Face"
+    >
+      😀
+    </span>
+  );
 };
 
 export default IconIndicator;

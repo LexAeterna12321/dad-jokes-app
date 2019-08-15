@@ -1,21 +1,35 @@
 .Joke {
     display: flex;
     padding: 2rem 0;
-    border-top: 2px solid grey;
-    border-bottom: 2px solid grey;
+
+
     align-items: center;
 
+    &:not(:last-child) {
+        border-bottom: 2px solid $grey-color-light-1;
+    }
+
     &__vote {
-        margin: 0 3rem
+        margin: 0 3rem;
+
+        @media only screen and (max-width:$bp-mobile) {
+            margin: 0 1rem;
+        }
     }
 
     &__txt {
         margin-right: auto;
-        font-size: 2rem;
+        font-size: 1.5rem;
+
+        text-align: left;
 
     }
 
     &__icon {
-        margin: 0 3rem
+        margin: 0 3rem;
+
+        @media only screen and (max-width:$bp-mobile) {
+            margin: 0 1rem;
+        }
     }
 }
