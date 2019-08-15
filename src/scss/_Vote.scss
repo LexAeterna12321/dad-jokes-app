@@ -1,0 +1,17 @@
+.vote {
+    display: flex;
+    align-items: center;
+
+
+    &__arrow {
+        font-size: 4rem;
+        color: #bbb;
+        font-weight: bold;
+        margin: 0 .5rem;
+        cursor: pointer;
+
+        &:hover {
+            color: #ccc;
+        }
+    }
+}

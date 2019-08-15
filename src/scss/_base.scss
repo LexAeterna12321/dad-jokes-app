@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower|Nunito+Sans:400,700,800&display=swap&subset=latin-ext');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit
+}
+
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+    font-family: $main-font;
+}

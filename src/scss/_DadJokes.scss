@@ -1,0 +1,11 @@
+.DadJokes {
+    min-height: 100vh;
+    background: $linear-grad;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media only screen and (max-width:$bp-mobile) {
+        flex-direction: column;
+    }
+}

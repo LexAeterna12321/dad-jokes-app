@@ -1,0 +1,70 @@
+.Sidebar {
+  background-color: #8b69c6;
+  height: 85vh;
+  border-radius: 5px;
+  box-shadow: 0 0 1rem 0.3rem rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40rem;
+  position: relative;
+  z-index: 2;
+  color: #fff;
+
+  @media only screen and (max-width:$bp-mobile) {
+    width: 100%;
+    flex-direction: row;
+    height: 20vh;
+    justify-content: space-evenly;
+  }
+
+  &__h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    letter-spacing: 4px;
+
+    @media only screen and (max-width:$bp-mobile) {
+      font-size: 3rem;
+    }
+  }
+
+  &__cursive {
+    font-family: $second-font;
+    text-transform: uppercase;
+  }
+
+  &__icon {
+    font-size: 14rem;
+    margin: 4rem 0;
+
+    box-shadow: 0 1rem 1rem .3rem rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+
+    @media only screen and (max-width:$bp-mobile) {
+      font-size: 6rem;
+    }
+  }
+
+  &__btn {
+    background: center $linear-grad;
+    background-size: 300%;
+    border: none;
+    border-radius: 5px;
+    padding: 20px 35px;
+    color: inherit;
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background-position: -50% -100%;
+    }
+
+    @media only screen and (max-width:$bp-mobile) {
+      font-size: 1.2rem;
+      padding: 10px 15px;
+    }
+  }
+}

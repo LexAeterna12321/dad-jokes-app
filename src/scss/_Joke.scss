@@ -1,0 +1,21 @@
+.Joke {
+    display: flex;
+    padding: 2rem 0;
+    border-top: 2px solid grey;
+    border-bottom: 2px solid grey;
+    align-items: center;
+
+    &__vote {
+        margin: 0 3rem
+    }
+
+    &__txt {
+        margin-right: auto;
+        font-size: 2rem;
+
+    }
+
+    &__icon {
+        margin: 0 3rem
+    }
+}
