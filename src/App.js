@@ -1,13 +1,12 @@
 import React from "react";
-import DadJokes from "./DadJokes";
-import "./App.css";
+import DadJokes from "./components/DadJokes";
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <DadJokes />
     </div>
   );
-}
+};
 
 export default App;
