@@ -3,32 +3,47 @@ import axios from "axios";
 import Sidebar from "./Sidebar";
 import Board from "./Board";
 import Jokes from "./Jokes";
-
+import LoadingSpinner from "./LoadingSpinner";
 export class DadJokes extends Component {
   static defaultProps = {
     jokesPerRequest: 10
   };
   state = {
     jokes: [],
-    jokesNum: 0
+    loading: false,
+    jokesPage: 1
   };
-  async componentDidMount() {
+  componentDidMount() {
+    this.fetchJokes();
+  }
+
+  fetchJokes = async () => {
     const API_URL = "https://icanhazdadjoke.com/search";
+    this.setState({ loading: true });
     const response = await axios.get(API_URL, {
       headers: {
         Accept: "application/json"
+      },
+      params: {
+        limit: 10,
+        page: this.state.jokesPage
       }
     });
+    console.log(response.data.results);
     const jokes = response.data.results
       .slice(0, this.props.jokesPerRequest)
       .map(joke => {
         return { txt: joke.joke, vote: 0, id: joke.id };
       });
-
     this.setState(state => {
-      return { jokes, jokesNum: state.jokesNum + this.props.jokesPerRequest };
+      return {
+        jokes: [...state.jokes, ...jokes],
+        loading: false,
+        jokesPage: state.jokesPage + 1
+      };
     });
-  }
+    console.log(this.state);
+  };
 
   changeVote = (vote, id) => {
     switch (vote) {
@@ -58,6 +73,7 @@ export class DadJokes extends Component {
         return null;
     }
   };
+
   indicatorsChange = vote => {
     let indicator = { border: "vote__count", emoji: "" };
 
@@ -74,17 +90,27 @@ export class DadJokes extends Component {
     }
   };
 
+  getNewJokes = () => {
+    this.fetchJokes();
+  };
+
   render() {
     return (
       <div className="DadJokes">
-        <Sidebar />
-        <Board>
-          <Jokes
-            jokes={this.state.jokes}
-            changeVote={this.changeVote}
-            indicatorsChange={this.indicatorsChange}
-          />
-        </Board>
+        {!this.state.loading ? (
+          <>
+            <Sidebar getNewJokes={this.getNewJokes} />
+            <Board>
+              <Jokes
+                jokes={this.state.jokes}
+                changeVote={this.changeVote}
+                indicatorsChange={this.indicatorsChange}
+              />
+            </Board>
+          </>
+        ) : (
+          <LoadingSpinner loading={this.state.loading} />
+        )}
       </div>
     );
   }

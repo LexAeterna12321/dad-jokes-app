@@ -1,6 +1,6 @@
 import React from "react";
 
-const Sidebar = () => {
+const Sidebar = ({ getNewJokes }) => {
   return (
     <div className="Sidebar">
       <h1 className="Sidebar__h1">
@@ -13,7 +13,9 @@ const Sidebar = () => {
       >
         😂
       </span>
-      <button className="Sidebar__btn">New Jokes</button>
+      <button className="Sidebar__btn" onClick={getNewJokes}>
+        New Jokes
+      </button>
     </div>
   );
 };
