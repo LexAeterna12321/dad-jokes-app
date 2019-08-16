@@ -58,13 +58,32 @@ export class DadJokes extends Component {
         return null;
     }
   };
+  indicatorsChange = vote => {
+    let indicator = { border: "vote__count", emoji: "" };
+
+    if (vote > 5) {
+      return { border: (indicator.border += "--great"), emoji: "😂" };
+    } else if (vote > 3 && vote <= 5) {
+      return { border: (indicator.border += "--good"), emoji: "😊" };
+    } else if (vote >= -3 && vote <= 3) {
+      return { border: (indicator.border += "--mediocrate"), emoji: "🤔" };
+    } else if (vote < -3 && vote >= -5) {
+      return { border: (indicator.border += "--bad"), emoji: "😒" };
+    } else if (vote < -5) {
+      return { border: (indicator.border += "--horrible"), emoji: "😔" };
+    }
+  };
 
   render() {
     return (
       <div className="DadJokes">
         <Sidebar />
         <Board>
-          <Jokes jokes={this.state.jokes} changeVote={this.changeVote} />
+          <Jokes
+            jokes={this.state.jokes}
+            changeVote={this.changeVote}
+            indicatorsChange={this.indicatorsChange}
+          />
         </Board>
       </div>
     );

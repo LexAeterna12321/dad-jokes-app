@@ -13,7 +13,7 @@
         border-radius: 50%;
         margin: 0 1rem;
         font-size: 1.5rem;
-        border: 1px solid black;
+        border: 2px solid;
         width: 4.5rem;
         height: 4.5rem;
         line-height: 4.5rem;
@@ -21,6 +21,26 @@
 
         @media only screen and (max-width:$bp-mobile) {
             margin: 0;
+        }
+
+        &--great {
+            border-color: $col-great;
+        }
+
+        &--good {
+            border-color: $col-good
+        }
+
+        &--mediocrate {
+            border-color: $mediocrate;
+        }
+
+        &--bad {
+            border-color: $col-bad;
+        }
+
+        &--horrible {
+            border-color: $col-horrible;
         }
     }
 
