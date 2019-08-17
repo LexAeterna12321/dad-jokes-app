@@ -13,8 +13,15 @@ export class DadJokes extends Component {
     loading: false,
     jokesPage: 1
   };
-  componentDidMount() {
-    this.fetchJokes();
+  async componentDidMount() {
+    const lsItems = await this.retrieveFromLS();
+
+    lsItems[0] !== null
+      ? this.setState({ jokes: lsItems[0], jokesPage: lsItems[1] })
+      : this.fetchJokes();
+  }
+  async componentDidUpdate() {
+    this.saveToLS(this.state.jokes, this.state.jokesPage);
   }
 
   fetchJokes = async () => {
@@ -29,7 +36,6 @@ export class DadJokes extends Component {
         page: this.state.jokesPage
       }
     });
-    console.log(response.data.results);
     const jokes = response.data.results
       .slice(0, this.props.jokesPerRequest)
       .map(joke => {
@@ -37,41 +43,24 @@ export class DadJokes extends Component {
       });
     this.setState(state => {
       return {
-        jokes: [...state.jokes, ...jokes],
+        jokes: this.sortJokesByVotes([...state.jokes, ...jokes]),
         loading: false,
         jokesPage: state.jokesPage + 1
       };
     });
-    console.log(this.state);
   };
 
   changeVote = (vote, id) => {
-    switch (vote) {
-      case "up": {
-        return this.setState(state => {
-          const newJokes = state.jokes.map(joke => {
-            if (joke.id === id) {
-              return { ...joke, vote: joke.vote + 1 };
-            }
-            return joke;
-          });
-          return { jokes: newJokes };
-        });
-      }
-      case "down": {
-        return this.setState(state => {
-          const newJokes = state.jokes.map(joke => {
-            if (joke.id === id) {
-              return { ...joke, vote: joke.vote - 1 };
-            }
-            return joke;
-          });
-          return { jokes: newJokes };
-        });
-      }
-      default:
-        return null;
-    }
+    return this.setState(state => {
+      const newJokes = state.jokes.map(joke => {
+        if (joke.id === id) {
+          return { ...joke, vote: joke.vote + (vote === "up" ? 1 : -1) };
+        }
+        return joke;
+      });
+
+      return { jokes: this.sortJokesByVotes(newJokes) };
+    });
   };
 
   indicatorsChange = vote => {
@@ -90,8 +79,18 @@ export class DadJokes extends Component {
     }
   };
 
-  getNewJokes = () => {
-    this.fetchJokes();
+  sortJokesByVotes = jokes => {
+    return jokes.sort((a, b) => b.vote - a.vote);
+  };
+
+  saveToLS = async (jokes, jokesPage) => {
+    await window.localStorage.setItem("jokes", JSON.stringify(jokes));
+    await window.localStorage.setItem("jokesPage", jokesPage);
+  };
+  retrieveFromLS = () => {
+    const lsItem = window.localStorage.getItem("jokes");
+    const lsJokesPage = window.localStorage.getItem("jokesPage");
+    return [JSON.parse(lsItem), JSON.parse(lsJokesPage)];
   };
 
   render() {
@@ -99,7 +98,7 @@ export class DadJokes extends Component {
       <div className="DadJokes">
         {!this.state.loading ? (
           <>
-            <Sidebar getNewJokes={this.getNewJokes} />
+            <Sidebar getNewJokes={this.fetchJokes} />
             <Board>
               <Jokes
                 jokes={this.state.jokes}
