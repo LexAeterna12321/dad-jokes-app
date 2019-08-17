@@ -1,7 +1,7 @@
 import React from "react";
 import Joke from "./Joke";
 
-const Jokes = ({ jokes, changeVote, indicatorsChange }) => {
+const Jokes = ({ jokes, changeVote, indicatorsChange, changeViewedStatus }) => {
   return (
     <ul className="Jokes">
       {jokes.map(joke => {
@@ -13,6 +13,8 @@ const Jokes = ({ jokes, changeVote, indicatorsChange }) => {
             vote={joke.vote}
             changeVote={changeVote}
             indicatorsChange={indicatorsChange}
+            newJoke={joke.newJoke}
+            changeViewedStatus={changeViewedStatus}
           />
         );
       })}

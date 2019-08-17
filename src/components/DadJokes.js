@@ -39,7 +39,7 @@ export class DadJokes extends Component {
     const jokes = response.data.results
       .slice(0, this.props.jokesPerRequest)
       .map(joke => {
-        return { txt: joke.joke, vote: 0, id: joke.id };
+        return { txt: joke.joke, vote: 0, id: joke.id, newJoke: true };
       });
     this.setState(state => {
       return {
@@ -83,6 +83,16 @@ export class DadJokes extends Component {
     return jokes.sort((a, b) => b.vote - a.vote);
   };
 
+  changeViewedStatus = id => {
+    const jokes = this.state.jokes.map(joke => {
+      if (joke.id === id) {
+        joke.newJoke = false;
+      }
+      return joke;
+    });
+    this.setState({ jokes });
+  };
+
   saveToLS = async (jokes, jokesPage) => {
     await window.localStorage.setItem("jokes", JSON.stringify(jokes));
     await window.localStorage.setItem("jokesPage", jokesPage);
@@ -104,6 +114,7 @@ export class DadJokes extends Component {
                 jokes={this.state.jokes}
                 changeVote={this.changeVote}
                 indicatorsChange={this.indicatorsChange}
+                changeViewedStatus={this.changeViewedStatus}
               />
             </Board>
           </>
